@@ -1,3 +1,5 @@
+import PageHeader from '../components/PageHeader';
+import DestinationContent from '../components/screens/destination/DestinationContent';
 import DefaultLayout from '../layouts/DefaultLayout';
 import PageBgsObj from '../utils/PageBgObj';
 
@@ -8,7 +10,12 @@ const bgObject = PageBgsObj(
 );
 
 function Destination() {
-  return <DefaultLayout bgObject={bgObject}>Destination</DefaultLayout>;
+  return (
+    <DefaultLayout bgObject={bgObject}>
+      <PageHeader num="01" text="Pick your destination" />
+      <DestinationContent />
+    </DefaultLayout>
+  );
 }
 
 export default Destination;

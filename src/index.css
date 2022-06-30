@@ -3,3 +3,22 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Bellefair&display=swap');
+
+@layer base {
+  html {
+    overflow-y: scroll;
+  }
+
+  body::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  body::-webkit-scrollbar-track {
+    background: #0b0d17;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: #d0d6f9;
+    border-radius: 44px 0 0 44px;
+  }
+}
