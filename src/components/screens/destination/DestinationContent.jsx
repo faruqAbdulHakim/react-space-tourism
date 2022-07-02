@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
 
 import DestinationTabs from './DestinationTabs';
 import DestinationImage from './DestinationImage';
@@ -36,6 +38,43 @@ const destinationData = {
 
 function DestinationContent() {
   const [tab, setTab] = useState('Moon');
+
+  const text1 = useRef(null);
+  const text2 = useRef(null);
+  const text3 = useRef(null);
+  const text4 = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(TextPlugin);
+    gsap.to(text1.current, {
+      text: tab,
+      duration: 0.5,
+    });
+    gsap.to(text2.current, {
+      text: destinationData[tab].text,
+      duration: 0.8,
+      delay: 0.5,
+    });
+    gsap.to(text3.current, {
+      text: '',
+      duration: 0.8,
+    });
+    gsap.to(text4.current, {
+      text: '',
+      duration: 0.8,
+    });
+    gsap.to(text3.current, {
+      text: destinationData[tab].distance,
+      duration: 0.8,
+      delay: 0.8,
+    });
+    gsap.to(text4.current, {
+      text: destinationData[tab].travelTime,
+      duration: 0.8,
+      delay: 0.8,
+    });
+  }, [tab]);
+
   return (
     <div
       className="flex flex-col desktop:flex-row
@@ -47,17 +86,19 @@ function DestinationContent() {
       pb-14"
     >
       <DestinationImage destination={tab} />
-      <div className="max-w-[400px] tablet:max-w-[573px] desktop:max-w-[445px]">
+      <div className="max-w-[400px] tablet:max-w-[573px] desktop:max-w-[445px] w-full">
         <DestinationTabs tab={tab} setTab={setTab} />
         <h1
+          ref={text1}
           className="font-serif text-[80px] desktop:text-3xl uppercase text-center desktop:text-left 
           mt-5 tablet:mt-8 desktop:mt-9"
         >
-          {tab}
+          {' '}
         </h1>
-        <p className="text-base text-center desktop:text-left text-icy-plains">
-          {destinationData[tab].text}
-        </p>
+        <p
+          ref={text2}
+          className="text-base text-center desktop:text-left text-icy-plains"
+        ></p>
 
         <hr
           className="border-white/25
@@ -70,17 +111,13 @@ function DestinationContent() {
             <h2 className="text-sm text-icy-plains uppercase tracking-[2.36px]">
               Avg. Distance
             </h2>
-            <p className="text-lg uppercase font-serif mt-3">
-              {destinationData[tab].distance}
-            </p>
+            <p ref={text3} className="text-lg uppercase font-serif mt-3"></p>
           </div>
           <div className="flex-1">
             <h2 className="text-sm text-icy-plains uppercase tracking-[2.36px]">
               Est. Travel Time
             </h2>
-            <p className="text-lg uppercase font-serif mt-3">
-              {destinationData[tab].travelTime}
-            </p>
+            <p ref={text4} className="text-lg uppercase font-serif mt-3"></p>
           </div>
         </div>
       </div>

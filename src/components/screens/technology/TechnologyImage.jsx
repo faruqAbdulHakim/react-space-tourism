@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
 
 const imgPath = {
   1: {
@@ -33,13 +34,30 @@ function TechnologyImage({ slide }) {
       }
     };
     updateImgSrc();
-    window.addEventListener('resize', () => {
+    window.onresize = () => {
       updateImgSrc();
-    });
+    };
+
+    gsap.fromTo(
+      imgRef.current,
+      {
+        opacity: 0,
+        scale: 0.95,
+      },
+      {
+        opacity: 1,
+        scale: 1,
+        duration: 3,
+      }
+    );
   }, [slide]);
 
   return (
-    <img ref={imgRef} alt="technology" className="w-screen desktop:w-auto" />
+    <img
+      ref={imgRef}
+      alt="technology"
+      className="w-screen desktop:w-auto origin-right"
+    />
   );
 }
 

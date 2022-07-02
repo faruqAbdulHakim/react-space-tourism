@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
+import { TextPlugin } from 'gsap/TextPlugin';
 
 import TechnologyImage from './TechnologyImage';
 import TechnologySlide from './TechnologySlide';
@@ -28,6 +30,22 @@ const technologyData = {
 function TechnologyContent() {
   const [slide, setSlide] = useState('1');
 
+  const text1 = useRef(null);
+  const text2 = useRef(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(TextPlugin);
+    gsap.to(text1.current, {
+      text: technologyData[slide].title,
+      duration: 1,
+    });
+    gsap.to(text2.current, {
+      text: technologyData[slide].text,
+      duration: 1,
+      delay: 0.5,
+    });
+  }, [slide]);
+
   return (
     <div className="mt-8 tablet:mt-14 desktop:mt-6 pb-20 flex flex-col desktop:flex-row items-center">
       <div className="desktop:order-3">
@@ -42,15 +60,17 @@ function TechnologyContent() {
         <p className="text-sm tablet:text-tiny uppercase tracking-[2.7px] text-icy-plains">
           The terminology...
         </p>
-        <h2 className="text-[24px] tablet:text-[40px] desktop:text-2xl uppercase font-serif mt-2">
-          {technologyData[slide].title}
+        <h2
+          ref={text1}
+          className="text-[24px] tablet:text-[40px] desktop:text-2xl uppercase font-serif mt-2"
+        >
+          {' '}
         </h2>
         <p
+          ref={text2}
           className="text-icy-plains max-w-[458px] desktop:max-w-[444px] leading-8 
           text-tiny desktop:text-base mx-4 desktop:mx-0 mt-4"
-        >
-          {technologyData[slide].text}
-        </p>
+        ></p>
       </div>
     </div>
   );

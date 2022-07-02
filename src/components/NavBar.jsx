@@ -44,6 +44,7 @@ function NavList({ num, text, link }) {
         className={`h-full flex items-center tracking-[2.7px]
         tablet:after:h-1 after:content-[''] after:absolute after:w-full after:bottom-0 after:transition-all
         ${isActive ? 'after:bg-white' : 'hover:after:bg-white/50'}`}
+        title={text}
       >
         <span className="font-serif font-bold mr-4 tablet:hidden desktop:inline">
           {num}
